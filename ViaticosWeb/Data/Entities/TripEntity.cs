@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,16 +11,10 @@ namespace ViaticosWeb.Data.Entities
     {
         public int Id{ get; set; }
 
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Start Date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd }", ApplyFormatInEditMode = false)]
-        public DateTime StartDate { get; set; }
-
-
-        [DataType(DataType.DateTime)]
-        [Display(Name = "End Date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd }", ApplyFormatInEditMode = false)]
-        public DateTime EndDate { get; set; }
+        [MaxLength(30, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name="Trip's Tittle")]
+        public string Tittle { get; set; }
 
         public ICollection<TripDetailEntity> TripDetails { get; set; }
     }
