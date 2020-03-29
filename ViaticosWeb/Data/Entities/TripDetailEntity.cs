@@ -23,7 +23,7 @@ namespace ViaticosWeb.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd }", ApplyFormatInEditMode = false)]
         public DateTime EndDate { get; set; }
 
-        public IEnumerable<SelectListItem> City { get; set; }
+        public CityEntity City { get; set; }
 
 
     }

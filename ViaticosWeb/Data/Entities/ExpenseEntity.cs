@@ -12,7 +12,7 @@ namespace ViaticosWeb.Data.Entities
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        public IEnumerable<SelectListItem> TypeExpense { get; set; }
+        public string TypeExpense { get; set; }
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Expense Date")]
