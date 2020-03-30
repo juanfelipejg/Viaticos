@@ -17,10 +17,23 @@ namespace ViaticosWeb.Data
 
         public DbSet<CityEntity> Cities { get; set; }
 
+        public DbSet<CountryEntity> Countries { get; set; }
         public DbSet<ExpenseEntity> Expenses { get; set; }
+        
+        public DbSet<ExpenseTypeEntity> ExpensesType { get; set; }
 
         public DbSet<TripDetailEntity> TripDetails { get; set; }
 
         public DbSet<TripEntity> Trips { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<ExpenseTypeEntity>()
+                .HasIndex(e => e.TypeExpense)
+                .IsUnique();
+        }
+
     }
 }

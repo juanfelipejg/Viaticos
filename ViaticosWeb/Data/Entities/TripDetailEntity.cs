@@ -23,7 +23,9 @@ namespace ViaticosWeb.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd }", ApplyFormatInEditMode = false)]
         public DateTime EndDate { get; set; }
 
-        public CityEntity City { get; set; }
+        public ICollection<CityEntity> Cities { get; set; }
+
+        public ICollection<ExpenseEntity> Expenses { get; set; }
 
 
     }

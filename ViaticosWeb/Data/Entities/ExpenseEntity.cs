@@ -11,8 +11,7 @@ namespace ViaticosWeb.Data.Entities
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
-        public string TypeExpense { get; set; }
+        public ExpenseTypeEntity TypeExpense { get; set; }
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Expense Date")]

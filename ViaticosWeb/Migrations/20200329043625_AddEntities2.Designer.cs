@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ViaticosWeb.Data;
 
 namespace ViaticosWeb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200329043625_AddEntities2")]
+    partial class AddEntities2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,34 +27,11 @@ namespace ViaticosWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CountryId");
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<int?>("TripDetailEntityId");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("TripDetailEntityId");
 
                     b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("ViaticosWeb.Data.Entities.CountryEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("ViaticosWeb.Data.Entities.ExpenseEntity", b =>
@@ -69,32 +48,14 @@ namespace ViaticosWeb.Migrations
 
                     b.Property<int?>("TripDetailEntityId");
 
-                    b.Property<int?>("TypeExpenseId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TripDetailEntityId");
-
-                    b.HasIndex("TypeExpenseId");
-
-                    b.ToTable("Expenses");
-                });
-
-            modelBuilder.Entity("ViaticosWeb.Data.Entities.ExpenseTypeEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("TypeExpense")
                         .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeExpense")
-                        .IsUnique();
+                    b.HasIndex("TripDetailEntityId");
 
-                    b.ToTable("ExpensesType");
+                    b.ToTable("Expenses");
                 });
 
             modelBuilder.Entity("ViaticosWeb.Data.Entities.TripDetailEntity", b =>
@@ -103,6 +64,8 @@ namespace ViaticosWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CityId");
+
                     b.Property<DateTime>("EndDate");
 
                     b.Property<DateTime>("StartDate");
@@ -110,6 +73,8 @@ namespace ViaticosWeb.Migrations
                     b.Property<int?>("TripEntityId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("TripEntityId");
 
@@ -131,30 +96,19 @@ namespace ViaticosWeb.Migrations
                     b.ToTable("Trips");
                 });
 
-            modelBuilder.Entity("ViaticosWeb.Data.Entities.CityEntity", b =>
-                {
-                    b.HasOne("ViaticosWeb.Data.Entities.CountryEntity", "Country")
-                        .WithMany("Cities")
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("ViaticosWeb.Data.Entities.TripDetailEntity")
-                        .WithMany("Cities")
-                        .HasForeignKey("TripDetailEntityId");
-                });
-
             modelBuilder.Entity("ViaticosWeb.Data.Entities.ExpenseEntity", b =>
                 {
                     b.HasOne("ViaticosWeb.Data.Entities.TripDetailEntity")
                         .WithMany("Expenses")
                         .HasForeignKey("TripDetailEntityId");
-
-                    b.HasOne("ViaticosWeb.Data.Entities.ExpenseTypeEntity", "TypeExpense")
-                        .WithMany()
-                        .HasForeignKey("TypeExpenseId");
                 });
 
             modelBuilder.Entity("ViaticosWeb.Data.Entities.TripDetailEntity", b =>
                 {
+                    b.HasOne("ViaticosWeb.Data.Entities.CityEntity", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
                     b.HasOne("ViaticosWeb.Data.Entities.TripEntity")
                         .WithMany("TripDetails")
                         .HasForeignKey("TripEntityId");

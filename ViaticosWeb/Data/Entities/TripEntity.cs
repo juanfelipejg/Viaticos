@@ -11,11 +11,13 @@ namespace ViaticosWeb.Data.Entities
     {
         public int Id{ get; set; }
 
-        [MaxLength(30, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [Display(Name="Trip's Tittle")]
-        public string Tittle { get; set; }
+        [Display(Name="Trip's Title")]
+        public string Title { get; set; }
 
         public ICollection<TripDetailEntity> TripDetails { get; set; }
+
+        
     }
 }
