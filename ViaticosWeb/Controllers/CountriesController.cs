@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,22 +10,22 @@ using ViaticosWeb.Data.Entities;
 
 namespace ViaticosWeb.Controllers
 {
-    public class ExpensesTypeController : Controller
+    public class CountriesController : Controller
     {
         private readonly DataContext _context;
 
-        public ExpensesTypeController(DataContext context)
+        public CountriesController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: ExpensesType
+        
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ExpensesType.ToListAsync());
+            return View(await _context.Countries.ToListAsync());
         }
 
-        // GET: ExpensesType/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,41 +33,42 @@ namespace ViaticosWeb.Controllers
                 return NotFound();
             }
 
-            var expenseTypeEntity = await _context.ExpensesType
+            var countryEntity = await _context.Countries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (expenseTypeEntity == null)
+            if (countryEntity == null)
             {
                 return NotFound();
             }
 
-            return View(expenseTypeEntity);
+            return View(countryEntity);
         }
 
-        // GET: ExpensesType/Create
+        
         public IActionResult Create()
         {
             return View();
         }
 
-
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ExpenseTypeEntity expenseTypeEntity)
+        public async Task<IActionResult> Create(CountryEntity countryEntity)
         {
             if (ModelState.IsValid)
             {
-                try { 
-                _context.Add(expenseTypeEntity);
-                await _context.SaveChangesAsync();
+                _context.Add(countryEntity);
 
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
 
                 catch (Exception ex)
                 {
                     if (ex.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, $"Already exists the Expense Type:{expenseTypeEntity.TypeExpense}");
+                        ModelState.AddModelError(string.Empty, $"Already exists the Country:{countryEntity.Name}");
 
                     }
                     else
@@ -78,7 +78,7 @@ namespace ViaticosWeb.Controllers
 
                 }
             }
-            return View(expenseTypeEntity);
+            return View(countryEntity);
         }
 
         
@@ -89,27 +89,27 @@ namespace ViaticosWeb.Controllers
                 return NotFound();
             }
 
-            var expenseTypeEntity = await _context.ExpensesType.FindAsync(id);
-            if (expenseTypeEntity == null)
+            var countryEntity = await _context.Countries.FindAsync(id);
+            if (countryEntity == null)
             {
                 return NotFound();
             }
-            return View(expenseTypeEntity);
+            return View(countryEntity);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ExpenseTypeEntity expenseTypeEntity)
+        public async Task<IActionResult> Edit(int id, CountryEntity countryEntity)
         {
-            if (id != expenseTypeEntity.Id)
+            if (id != countryEntity.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                _context.Update(expenseTypeEntity);
+                _context.Update(countryEntity);
                 try
                 {
                     await _context.SaveChangesAsync();
@@ -119,16 +119,17 @@ namespace ViaticosWeb.Controllers
                 {
                     if (ex.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, $"Already exists the Expense Type:{expenseTypeEntity.TypeExpense}");
+                        ModelState.AddModelError(string.Empty, $"Already exists the team:{countryEntity.Name}");
                     }
                     else
                     {
                         ModelState.AddModelError(string.Empty, ex.InnerException.Message);
                     }
+
                 }
                 
             }
-            return View(expenseTypeEntity);
+            return View(countryEntity);
         }
 
         
@@ -139,30 +140,30 @@ namespace ViaticosWeb.Controllers
                 return NotFound();
             }
 
-            var expenseTypeEntity = await _context.ExpensesType
+            var countryEntity = await _context.Countries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (expenseTypeEntity == null)
+            if (countryEntity == null)
             {
                 return NotFound();
             }
 
-            return View(expenseTypeEntity);
+            return View(countryEntity);
         }
 
-        // POST: ExpensesType/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var expenseTypeEntity = await _context.ExpensesType.FindAsync(id);
-            _context.ExpensesType.Remove(expenseTypeEntity);
+            var countryEntity = await _context.Countries.FindAsync(id);
+            _context.Countries.Remove(countryEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ExpenseTypeEntityExists(int id)
+        private bool CountryEntityExists(int id)
         {
-            return _context.ExpensesType.Any(e => e.Id == id);
+            return _context.Countries.Any(e => e.Id == id);
         }
     }
 }

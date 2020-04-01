@@ -33,6 +33,14 @@ namespace ViaticosWeb.Data
             builder.Entity<ExpenseTypeEntity>()
                 .HasIndex(e => e.TypeExpense)
                 .IsUnique();
+
+            builder.Entity<CountryEntity>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
+
+            builder.Entity<CityEntity>()
+                .HasIndex(cy => cy.Name)
+                .IsUnique();
         }
 
     }
