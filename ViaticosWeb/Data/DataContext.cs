@@ -18,9 +18,9 @@ namespace ViaticosWeb.Data
         public DbSet<CityEntity> Cities { get; set; }
 
         public DbSet<CountryEntity> Countries { get; set; }
-        public DbSet<ExpenseEntity> Expenses { get; set; }
-        
-        public DbSet<ExpenseTypeEntity> ExpensesType { get; set; }
+
+        public DbSet<ExpenseTypeEntity> ExpenseTypes { get; set; }
+
 
         public DbSet<TripDetailEntity> TripDetails { get; set; }
 
@@ -31,8 +31,8 @@ namespace ViaticosWeb.Data
             base.OnModelCreating(builder);
 
             builder.Entity<ExpenseTypeEntity>()
-                .HasIndex(e => e.TypeExpense)
-                .IsUnique();
+              .HasIndex(e => e.Name)
+              .IsUnique();
 
             builder.Entity<CountryEntity>()
                 .HasIndex(c => c.Name)

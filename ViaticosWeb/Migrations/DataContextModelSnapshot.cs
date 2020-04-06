@@ -30,13 +30,12 @@ namespace ViaticosWeb.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int?>("TripDetailEntityId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("TripDetailEntityId");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Cities");
                 });
@@ -52,32 +51,10 @@ namespace ViaticosWeb.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Countries");
-                });
-
-            modelBuilder.Entity("ViaticosWeb.Data.Entities.ExpenseEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Cost");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<string>("LogoPath");
-
-                    b.Property<int?>("TripDetailEntityId");
-
-                    b.Property<int?>("TypeExpenseId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TripDetailEntityId");
-
-                    b.HasIndex("TypeExpenseId");
-
-                    b.ToTable("Expenses");
                 });
 
             modelBuilder.Entity("ViaticosWeb.Data.Entities.ExpenseTypeEntity", b =>
@@ -86,15 +63,16 @@ namespace ViaticosWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("TypeExpense")
-                        .IsRequired();
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeExpense")
+                    b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("ExpensesType");
+                    b.ToTable("ExpenseTypes");
                 });
 
             modelBuilder.Entity("ViaticosWeb.Data.Entities.TripDetailEntity", b =>
@@ -103,15 +81,24 @@ namespace ViaticosWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<decimal>("Amount");
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<DateTime>("Date");
 
-                    b.Property<int?>("TripEntityId");
+                    b.Property<string>("Description")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("PicturePath");
+
+                    b.Property<int?>("TripId");
+
+                    b.Property<int>("TypeExpenseId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TripEntityId");
+                    b.HasIndex("TripId");
+
+                    b.HasIndex("TypeExpenseId");
 
                     b.ToTable("TripDetails");
                 });
@@ -122,11 +109,15 @@ namespace ViaticosWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<int>("CityId");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.ToTable("Trips");
                 });
@@ -136,28 +127,26 @@ namespace ViaticosWeb.Migrations
                     b.HasOne("ViaticosWeb.Data.Entities.CountryEntity", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId");
-
-                    b.HasOne("ViaticosWeb.Data.Entities.TripDetailEntity")
-                        .WithMany("Cities")
-                        .HasForeignKey("TripDetailEntityId");
-                });
-
-            modelBuilder.Entity("ViaticosWeb.Data.Entities.ExpenseEntity", b =>
-                {
-                    b.HasOne("ViaticosWeb.Data.Entities.TripDetailEntity")
-                        .WithMany("Expenses")
-                        .HasForeignKey("TripDetailEntityId");
-
-                    b.HasOne("ViaticosWeb.Data.Entities.ExpenseTypeEntity", "TypeExpense")
-                        .WithMany()
-                        .HasForeignKey("TypeExpenseId");
                 });
 
             modelBuilder.Entity("ViaticosWeb.Data.Entities.TripDetailEntity", b =>
                 {
-                    b.HasOne("ViaticosWeb.Data.Entities.TripEntity")
+                    b.HasOne("ViaticosWeb.Data.Entities.TripEntity", "Trip")
                         .WithMany("TripDetails")
-                        .HasForeignKey("TripEntityId");
+                        .HasForeignKey("TripId");
+
+                    b.HasOne("ViaticosWeb.Data.Entities.ExpenseTypeEntity", "TypeExpense")
+                        .WithMany()
+                        .HasForeignKey("TypeExpenseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ViaticosWeb.Data.Entities.TripEntity", b =>
+                {
+                    b.HasOne("ViaticosWeb.Data.Entities.CityEntity", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

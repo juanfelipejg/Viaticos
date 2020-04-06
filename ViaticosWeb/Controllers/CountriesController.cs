@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ViaticosWeb.Data;
 using ViaticosWeb.Data.Entities;
+using ViaticosWeb.Helpers;
+using ViaticosWeb.Models;
 
 namespace ViaticosWeb.Controllers
 {
     public class CountriesController : Controller
     {
         private readonly DataContext _context;
+        private readonly IConverterHelper _converterHelper;
 
-        public CountriesController(DataContext context)
+        public CountriesController(DataContext context , IConverterHelper converterHelper)
         {
             _context = context;
+            _converterHelper = converterHelper;
         }
 
         
@@ -32,9 +36,10 @@ namespace ViaticosWeb.Controllers
             {
                 return NotFound();
             }
-
-            var countryEntity = await _context.Countries
-                .FirstOrDefaultAsync(m => m.Id == id);
+            CountryEntity countryEntity = await _context.Countries
+                .Include(c => c.Cities).FirstOrDefaultAsync(m => m.Id == id);
+                
+            
             if (countryEntity == null)
             {
                 return NotFound();
@@ -165,5 +170,99 @@ namespace ViaticosWeb.Controllers
         {
             return _context.Countries.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> AddCity (int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            CountryEntity countryEntity = await _context.Countries.FindAsync(id);
+            if (countryEntity == null)
+            {
+                return NotFound();
+            }
+
+            CityViewModel model = new CityViewModel
+            {
+                Country = countryEntity,
+                CountryId = countryEntity.Id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddCity (CityViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                CityEntity cityEntity = await _converterHelper.ToCityEntityAsync(model, true);
+                _context.Add(cityEntity);
+                await _context.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.CountryId}");
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> EditCity(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            CityEntity cityEntity = await _context.Cities
+                .Include(c => c.Country)
+                .FirstOrDefaultAsync(c => c.Id == id);
+            if (cityEntity == null)
+            {
+                return NotFound();
+            }
+
+            CityViewModel model = _converterHelper.ToCityViewModel(cityEntity);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditCity(CityViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                CityEntity cityEntity = await _converterHelper.ToCityEntityAsync(model, false);
+                _context.Update(cityEntity);
+                await _context.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.CountryId}");
+
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> DeleteCity(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            CityEntity cityEntity = await _context.Cities
+                .Include(g => g.Country)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (cityEntity == null)
+            {
+                return NotFound();
+            }
+
+            _context.Cities.Remove(cityEntity);
+            await _context.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{cityEntity.Country.Id}");
+        }
+
+
     }
 }

@@ -14,9 +14,6 @@ namespace ViaticosWeb.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Name { get; set; }
 
-        public ICollection<CityEntity> Cities
-        {
-            get; set;
-        }
-}
+        public ICollection<CityEntity> Cities {get; set;}
+     }
 }

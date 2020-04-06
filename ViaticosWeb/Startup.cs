@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ViaticosWeb.Data;
+using ViaticosWeb.Helpers;
 
 namespace ViaticosWeb
 {
@@ -30,7 +31,7 @@ namespace ViaticosWeb
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("ViaticosConnection"));
             });
-
+            services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

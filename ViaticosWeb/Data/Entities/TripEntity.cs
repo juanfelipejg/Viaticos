@@ -11,13 +11,26 @@ namespace ViaticosWeb.Data.Entities
     {
         public int Id{ get; set; }
 
-        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [Display(Name="Trip's Title")]
-        public string Title { get; set; }
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Start Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd }", ApplyFormatInEditMode = false)]
+        public DateTime StartDate { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "End Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd }", ApplyFormatInEditMode = false)]
+        public DateTime EndDate { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public CityEntity City { get; set; }
+
+        [DataType(DataType.Currency)]
+        public decimal TotalAmount;
 
         public ICollection<TripDetailEntity> TripDetails { get; set; }
 
-        
+
     }
 }

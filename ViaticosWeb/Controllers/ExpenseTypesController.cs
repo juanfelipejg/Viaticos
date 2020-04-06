@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,22 +10,22 @@ using ViaticosWeb.Data.Entities;
 
 namespace ViaticosWeb.Controllers
 {
-    public class ExpensesTypeController : Controller
+    public class ExpenseTypesController : Controller
     {
         private readonly DataContext _context;
 
-        public ExpensesTypeController(DataContext context)
+        public ExpenseTypesController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: ExpensesType
+        
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ExpensesType.ToListAsync());
+            return View(await _context.ExpenseTypes.ToListAsync());
         }
 
-        // GET: ExpensesType/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,7 +33,7 @@ namespace ViaticosWeb.Controllers
                 return NotFound();
             }
 
-            var expenseTypeEntity = await _context.ExpensesType
+            var expenseTypeEntity = await _context.ExpenseTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (expenseTypeEntity == null)
             {
@@ -44,7 +43,7 @@ namespace ViaticosWeb.Controllers
             return View(expenseTypeEntity);
         }
 
-        // GET: ExpensesType/Create
+        
         public IActionResult Create()
         {
             return View();
@@ -57,18 +56,19 @@ namespace ViaticosWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                try { 
                 _context.Add(expenseTypeEntity);
-                await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+
                 }
-
                 catch (Exception ex)
                 {
                     if (ex.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, $"Already exists the Expense Type:{expenseTypeEntity.TypeExpense}");
+                        ModelState.AddModelError(string.Empty, $"Already exists the team:{expenseTypeEntity.Name}");
 
                     }
                     else
@@ -77,11 +77,12 @@ namespace ViaticosWeb.Controllers
                     }
 
                 }
+
             }
             return View(expenseTypeEntity);
         }
 
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,7 +90,7 @@ namespace ViaticosWeb.Controllers
                 return NotFound();
             }
 
-            var expenseTypeEntity = await _context.ExpensesType.FindAsync(id);
+            var expenseTypeEntity = await _context.ExpenseTypes.FindAsync(id);
             if (expenseTypeEntity == null)
             {
                 return NotFound();
@@ -113,25 +114,26 @@ namespace ViaticosWeb.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return View(expenseTypeEntity);
                 }
                 catch (Exception ex)
                 {
                     if (ex.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, $"Already exists the Expense Type:{expenseTypeEntity.TypeExpense}");
+                        ModelState.AddModelError(string.Empty, $"Already exists the team:{expenseTypeEntity.Name}");
                     }
                     else
                     {
                         ModelState.AddModelError(string.Empty, ex.InnerException.Message);
                     }
+
                 }
-                
             }
             return View(expenseTypeEntity);
+
         }
 
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,7 +141,7 @@ namespace ViaticosWeb.Controllers
                 return NotFound();
             }
 
-            var expenseTypeEntity = await _context.ExpensesType
+            var expenseTypeEntity = await _context.ExpenseTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (expenseTypeEntity == null)
             {
@@ -149,20 +151,20 @@ namespace ViaticosWeb.Controllers
             return View(expenseTypeEntity);
         }
 
-        // POST: ExpensesType/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var expenseTypeEntity = await _context.ExpensesType.FindAsync(id);
-            _context.ExpensesType.Remove(expenseTypeEntity);
+            var expenseTypeEntity = await _context.ExpenseTypes.FindAsync(id);
+            _context.ExpenseTypes.Remove(expenseTypeEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExpenseTypeEntityExists(int id)
         {
-            return _context.ExpensesType.Any(e => e.Id == id);
+            return _context.ExpenseTypes.Any(e => e.Id == id);
         }
     }
 }
