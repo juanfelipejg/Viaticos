@@ -23,7 +23,11 @@ namespace ViaticosWeb.Helpers
 
         TripDetailResponse ToTripDetailResponse(TripDetailEntity tripDetailEntity);
 
-        ExpenseTypeResponse ToExpenseTypeResponse(ExpenseTypeEntity expenseTypeEntity)
+        ExpenseTypeResponse ToExpenseTypeResponse(ExpenseTypeEntity expenseTypeEntity);
+
+        CityResponse ToCityResponse(CityEntity cityEntity);
+
+        CountryResponse ToCountryResponse(CountryEntity countryEntity);
 
     }
 }

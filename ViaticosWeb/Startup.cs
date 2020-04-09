@@ -31,6 +31,7 @@ namespace ViaticosWeb
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("ViaticosConnection"));
             });
+            services.AddTransient<SeedDb>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

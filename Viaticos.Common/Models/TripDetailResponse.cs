@@ -12,6 +12,8 @@ namespace Viaticos.Common.Models
 
         public DateTime Date { get; set; }
 
+        public DateTime DateLocal => Date.ToLocalTime();
+
         public decimal Amount { get; set; }
 
         public string Description { get; set; }

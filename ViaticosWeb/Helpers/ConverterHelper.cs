@@ -41,6 +41,18 @@ namespace ViaticosWeb.Helpers
             };
         }
 
+        public TripResponse ToTripResponse(TripEntity tripEntity)
+        {
+            return new TripResponse
+            {
+                Id = tripEntity.Id,
+                StartDate = tripEntity.StartDate,
+                EndDate = tripEntity.EndDate,
+                City = ToCityResponse(tripEntity.City),
+                TotalAmount = tripEntity.TotalAmount,
+            };
+        }
+
         public TripDetailResponse ToTripDetailResponse(TripDetailEntity tripDetailEntity)
         {
             return new TripDetailResponse
@@ -55,12 +67,6 @@ namespace ViaticosWeb.Helpers
             };
 
         }
-
-       public TripResponse ToTripResponse(TripEntity tripEntity)
-        {
-            throw new NotImplementedException();
-        }
-
         public ExpenseTypeResponse ToExpenseTypeResponse(ExpenseTypeEntity expenseTypeEntity)
         {
             return new ExpenseTypeResponse
@@ -71,7 +77,25 @@ namespace ViaticosWeb.Helpers
 
         }
 
+        public CityResponse ToCityResponse(CityEntity cityEntity)
+        {
+            return new CityResponse
+            {
+                Id = cityEntity.Id,
+                Name = cityEntity.Name,
+                Country = ToCountryResponse(cityEntity.Country)
+            };
+        }
 
+        public CountryResponse ToCountryResponse(CountryEntity countryEntity)
+        {
+            return new CountryResponse
+            {
+                Id = countryEntity.Id,
+                Name = countryEntity.Name,
 
+            };
+            
+        }
     }
 }

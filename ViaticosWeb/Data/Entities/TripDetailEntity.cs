@@ -16,10 +16,12 @@ namespace ViaticosWeb.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public ExpenseTypeEntity TypeExpense { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = false)]
         public DateTime Date { get; set; }
+
+        public DateTime DateLocal => Date.ToLocalTime();
 
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [DataType(DataType.Currency)]

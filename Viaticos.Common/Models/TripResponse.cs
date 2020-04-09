@@ -14,9 +14,10 @@ namespace Viaticos.Common.Models
 
         public DateTime EndDate { get; set; }
 
+        public CityResponse City { get; set; }
 
         public decimal TotalAmount;
 
-        public List<TripDetailResponse> TripDetails { get; set; }
+        public ICollection<TripDetailResponse> TripDetails { get; set; }
     }
 }
