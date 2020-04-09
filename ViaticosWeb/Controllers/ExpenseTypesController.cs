@@ -114,7 +114,7 @@ namespace ViaticosWeb.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    return View(expenseTypeEntity);
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
@@ -141,26 +141,20 @@ namespace ViaticosWeb.Controllers
                 return NotFound();
             }
 
-            var expenseTypeEntity = await _context.ExpenseTypes
+            ExpenseTypeEntity expenseTypeEntity = await _context.ExpenseTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (expenseTypeEntity == null)
             {
                 return NotFound();
             }
-
-            return View(expenseTypeEntity);
-        }
-
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var expenseTypeEntity = await _context.ExpenseTypes.FindAsync(id);
             _context.ExpenseTypes.Remove(expenseTypeEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+            
         }
+
+
+
 
         private bool ExpenseTypeEntityExists(int id)
         {

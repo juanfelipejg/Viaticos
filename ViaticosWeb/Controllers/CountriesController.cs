@@ -145,26 +145,19 @@ namespace ViaticosWeb.Controllers
                 return NotFound();
             }
 
-            var countryEntity = await _context.Countries
+            CountryEntity countryEntity = await _context.Countries
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (countryEntity == null)
             {
                 return NotFound();
             }
 
-            return View(countryEntity);
-        }
-
-        
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var countryEntity = await _context.Countries.FindAsync(id);
             _context.Countries.Remove(countryEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        
 
         private bool CountryEntityExists(int id)
         {

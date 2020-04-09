@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using ViaticosWeb.Data;
 using ViaticosWeb.Data.Entities;
 using ViaticosWeb.Models;
+using Viaticos.Common.Models;
+
+
 
 namespace ViaticosWeb.Helpers
 {
@@ -37,5 +40,38 @@ namespace ViaticosWeb.Helpers
                 CountryId= cityEntity.Country.Id
             };
         }
+
+        public TripDetailResponse ToTripDetailResponse(TripDetailEntity tripDetailEntity)
+        {
+            return new TripDetailResponse
+            {
+                Id = tripDetailEntity.Id,
+                TypeExpense = ToExpenseTypeResponse(tripDetailEntity.TypeExpense),
+                Date = tripDetailEntity.Date,
+                Amount = tripDetailEntity.Amount,
+                Description = tripDetailEntity.Description,
+                PicturePath = tripDetailEntity.PicturePath
+                               
+            };
+
+        }
+
+       public TripResponse ToTripResponse(TripEntity tripEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ExpenseTypeResponse ToExpenseTypeResponse(ExpenseTypeEntity expenseTypeEntity)
+        {
+            return new ExpenseTypeResponse
+            {
+                Id = expenseTypeEntity.Id,
+                Name = expenseTypeEntity.Name,
+            };
+
+        }
+
+
+
     }
 }

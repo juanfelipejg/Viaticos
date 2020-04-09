@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Widget;
 using Android.Content.PM;
 
+
 namespace Viaticos.Cross.Android
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
