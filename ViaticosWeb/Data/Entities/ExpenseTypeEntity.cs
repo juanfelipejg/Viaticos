@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ViaticosWeb.Data.Entities
 {
@@ -15,7 +12,5 @@ namespace ViaticosWeb.Data.Entities
         public string Name { get; set; }
 
         public ICollection<TripDetailEntity> TripDetails { get; set; }
-
-
     }
 }

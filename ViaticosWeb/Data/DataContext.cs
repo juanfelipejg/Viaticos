@@ -1,18 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Soccer.Web.Data.Entities;
 using ViaticosWeb.Data.Entities;
 
 namespace ViaticosWeb.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<UserEntity>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-
-
         }
 
         public DbSet<CityEntity> Cities { get; set; }
@@ -20,7 +16,6 @@ namespace ViaticosWeb.Data
         public DbSet<CountryEntity> Countries { get; set; }
 
         public DbSet<ExpenseTypeEntity> ExpenseTypes { get; set; }
-
 
         public DbSet<TripDetailEntity> TripDetails { get; set; }
 
