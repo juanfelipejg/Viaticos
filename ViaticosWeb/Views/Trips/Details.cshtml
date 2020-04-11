@@ -1,0 +1,116 @@
+﻿@model ViaticosWeb.Data.Entities.TripEntity
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+<h2>Details</h2>
+
+<div>
+    <h4>Trip</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StartDateLocal)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndDateLocal)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.City)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.City.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TotalAmount)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TotalAmount)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-success">Back to List</a>
+</div>
+<br />
+
+@if (Model.TripDetails.Count != 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Teams</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover table-responsive table-striped" id="MyTableTeams">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TripDetails.FirstOrDefault().TypeExpense)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TripDetails.FirstOrDefault().Date)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TripDetails.FirstOrDefault().Amount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TripDetails.FirstOrDefault().Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TripDetails.FirstOrDefault().PicturePath)
+                                </th>
+                                <th width="100px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TripDetails.OrderBy(t => t.DateLocal))
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TypeExpense.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateLocal)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.PicturePath))
+                                        {
+                                            <img src="@Url.Content(item.PicturePath)" alt="Image" style="width:100px;height:100px;max-width: 100%; height: auto;" />
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

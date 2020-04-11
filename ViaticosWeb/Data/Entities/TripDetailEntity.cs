@@ -26,5 +26,7 @@ namespace ViaticosWeb.Data.Entities
         public string PicturePath { get; set; }
 
         public TripEntity Trip { get; set; }
+
+        
     }
 }

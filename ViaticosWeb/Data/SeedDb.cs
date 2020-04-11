@@ -1,4 +1,5 @@
 ﻿using Soccer.Web.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace ViaticosWeb.Data
             await CheckCountryAsync();
             await CheckUserAsync("1010", "Juan", "Jaramillo", "juanfelipejg@gmail.com", "350 634 2747", "Calle Luna Calle Sol", UserType.Admin);
             await CheckUserAsync("2020", "Juan", "Jaramillo", "juanfelipejg@hotmail.com", "350 634 2747", "Calle Luna Calle Sol", UserType.User);
+            await CheckTripsAsync();
         }
 
         private async Task<UserEntity> CheckUserAsync(
@@ -72,7 +74,7 @@ namespace ViaticosWeb.Data
         {
             if (!_context.ExpenseTypes.Any())
             {
-                AddExpenseType("Alimentación");
+                AddExpenseType("Alimentacion");
                 AddExpenseType("Transporte");
                 AddExpenseType("Hospedaje");
                 AddExpenseType("Representacion");
@@ -106,11 +108,63 @@ namespace ViaticosWeb.Data
                 });
                 await _context.SaveChangesAsync();
             }
-
-
-
         }
 
+        private async Task CheckTripsAsync()
+        {
+            if (!_context.Trips.Any())
+            {
+                foreach (var user in _context.Users)
+                {
+                    if (user.UserType == UserType.User)
+                    {
+                        AddTrip(user);
+                    }
+                }
 
+                await _context.SaveChangesAsync();
+            }
+        }
+        private void AddTrip(UserEntity user)
+        {
+            
+                var startDate = DateTime.Today.AddDays(2).ToUniversalTime();
+                var endDate = DateTime.Today.AddDays(5).ToUniversalTime();
+
+                _context.Trips.Add(new TripEntity
+                {
+                    Name = "Visita Cliente",
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    City = _context.Cities.FirstOrDefault(c => c.Name == "Medellin"),
+                    TripDetails = new List<TripDetailEntity>
+                    {
+                    new TripDetailEntity
+                    {
+                    TypeExpense = _context.ExpenseTypes.FirstOrDefault(e => e.Name == "Alimentacion"),
+                    Date = DateTime.Today.AddDays(1).ToUniversalTime(),
+                    Amount = 15000,
+                    Description = "Lunch",
+                    PicturePath = $"~/images/Trips/prueba.jpg",
+                    },
+                    new TripDetailEntity
+                    {
+                    TypeExpense = _context.ExpenseTypes.FirstOrDefault(e => e.Name == "Alimentacion"),
+                    Date = DateTime.Today.AddDays(1).ToUniversalTime(),
+                    Amount = 15000,
+                    Description = "Dinner",
+                    PicturePath = $"~/images/Trips/prueba.jpg",
+                    }
+                    },
+                    User = user
+                    
+
+                });
+            }
+        }
     }
-}
+
+
+
+
+
