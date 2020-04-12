@@ -1,4 +1,4 @@
-﻿
+﻿using Soccer.Web.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 using Viaticos.Common.Models;
 using ViaticosWeb.Data.Entities;
 using ViaticosWeb.Models;
-
-
-
-
 
 namespace ViaticosWeb.Helpers
 {
@@ -21,13 +17,12 @@ namespace ViaticosWeb.Helpers
 
         TripResponse ToTripResponse(TripEntity tripEntity);
 
-        TripDetailResponse ToTripDetailResponse(TripDetailEntity tripDetailEntity);
-
         ExpenseTypeResponse ToExpenseTypeResponse(ExpenseTypeEntity expenseTypeEntity);
 
         CityResponse ToCityResponse(CityEntity cityEntity);
 
         CountryResponse ToCountryResponse(CountryEntity countryEntity);
 
+        UserResponse ToUserResponse(UserEntity user);
     }
 }

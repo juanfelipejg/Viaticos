@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ViaticosWeb.Data;
 using ViaticosWeb.Data.Entities;
-
+using ViaticosWeb.Helpers;
 
 namespace ViaticosWeb.Controllers.API
 {
@@ -16,13 +16,14 @@ namespace ViaticosWeb.Controllers.API
     public class TripsController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IConverterHelper _converterHelper;
 
-        public TripsController(DataContext context)
+        public TripsController(DataContext context, IConverterHelper converterHelper)
         {
             _context = context;
+            _converterHelper = converterHelper;
         }
 
-        // GET: api/Trips
         [HttpGet]
         public IEnumerable<TripEntity> GetTrips()
         {

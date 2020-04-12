@@ -9,7 +9,6 @@ namespace ViaticosWeb.Data.Entities
     public class TripEntity
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
 
         [Required(ErrorMessage = "The field {0} is mandatory.")]

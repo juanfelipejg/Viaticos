@@ -41,6 +41,7 @@ namespace ViaticosWeb.Controllers
             .ThenInclude(t => t.TypeExpense)
             .Include(t=> t.TripDetails)
             .Include(t => t.City)
+            .Include(t=>t.User)
             .FirstOrDefaultAsync(m => m.Id == id));
             
             if (tripEntity == null)

@@ -6,8 +6,7 @@ using ViaticosWeb.Data;
 using ViaticosWeb.Data.Entities;
 using ViaticosWeb.Models;
 using Viaticos.Common.Models;
-
-
+using Soccer.Web.Data.Entities;
 
 namespace ViaticosWeb.Helpers
 {
@@ -30,6 +29,20 @@ namespace ViaticosWeb.Helpers
             };
         }
 
+        public CityResponse ToCityResponse(CityEntity cityEntity)
+        {
+            if (cityEntity == null)
+            {
+                return null;
+            }
+
+            return new CityResponse
+            {
+                Id = cityEntity.Id,
+                Name = cityEntity.Name,
+            };
+        }
+
         public CityViewModel ToCityViewModel(CityEntity cityEntity)
         {
             return new CityViewModel
@@ -41,61 +54,86 @@ namespace ViaticosWeb.Helpers
             };
         }
 
-        public TripResponse ToTripResponse(TripEntity tripEntity)
+        public CountryResponse ToCountryResponse(CountryEntity countryEntity)
         {
-            return new TripResponse
+            if (countryEntity == null)
             {
-                Id = tripEntity.Id,
-                StartDate = tripEntity.StartDate,
-                EndDate = tripEntity.EndDate,
-                City = ToCityResponse(tripEntity.City),
-                TotalAmount = tripEntity.TotalAmount,
+                return null;
+            }
+            return new CountryResponse
+            {
+                Id = countryEntity.Id,
+                Name = countryEntity.Name,
+                Cities = countryEntity.Cities?.Select(c => new CityResponse
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList(),
             };
         }
 
-        public TripDetailResponse ToTripDetailResponse(TripDetailEntity tripDetailEntity)
-        {
-            return new TripDetailResponse
-            {
-                Id = tripDetailEntity.Id,
-                TypeExpense = ToExpenseTypeResponse(tripDetailEntity.TypeExpense),
-                Date = tripDetailEntity.Date,
-                Amount = tripDetailEntity.Amount,
-                Description = tripDetailEntity.Description,
-                PicturePath = tripDetailEntity.PicturePath
-                               
-            };
-
-        }
         public ExpenseTypeResponse ToExpenseTypeResponse(ExpenseTypeEntity expenseTypeEntity)
         {
+            if (expenseTypeEntity == null)
+            {
+                return null;
+            }
+
             return new ExpenseTypeResponse
             {
                 Id = expenseTypeEntity.Id,
                 Name = expenseTypeEntity.Name,
             };
-
         }
-
-        public CityResponse ToCityResponse(CityEntity cityEntity)
+        public TripResponse ToTripResponse(TripEntity tripEntity)
         {
-            return new CityResponse
+            return new TripResponse
             {
-                Id = cityEntity.Id,
-                Name = cityEntity.Name,
-                Country = ToCountryResponse(cityEntity.Country)
+                Id = tripEntity.Id,
+                Name = tripEntity.Name,
+                StartDate = tripEntity.StartDate,
+                EndDate = tripEntity.EndDate,
+                City = ToCityResponse(tripEntity.City),
+                TripDetails = tripEntity.TripDetails?.Select(t => new TripDetailResponse
+                {
+                    Id = t.Id,
+                    TypeExpense = ToExpenseTypeResponse(t.TypeExpense),
+                    Date = t.Date,
+                    Amount = t.Amount,
+                    Description = t.Description,
+                    PicturePath = t.PicturePath
+                }).ToList(),
+                User =ToUserResponse(tripEntity.User)
             };
         }
-
-        public CountryResponse ToCountryResponse(CountryEntity countryEntity)
+        public List<TripResponse> ToTripResponse(List<TripEntity> tripEntities)
         {
-            return new CountryResponse
+            List<TripResponse> list = new List<TripResponse>();
+            foreach (TripEntity tripEntity in tripEntities)
             {
-                Id = countryEntity.Id,
-                Name = countryEntity.Name,
+                list.Add(ToTripResponse(tripEntity));
+            }
 
+            return list;
+        }
+        public UserResponse ToUserResponse(UserEntity user)
+        {
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new UserResponse
+            {
+                Address = user.Address,
+                Document = user.Document,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                Id = user.Id,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                UserType = user.UserType
             };
-            
         }
     }
 }
