@@ -17,6 +17,8 @@ namespace ViaticosWeb.Helpers
 
         TripResponse ToTripResponse(TripEntity tripEntity);
 
+        List<TripResponse> ToTripResponse(List<TripEntity> tripEntities);
+
         ExpenseTypeResponse ToExpenseTypeResponse(ExpenseTypeEntity expenseTypeEntity);
 
         CityResponse ToCityResponse(CityEntity cityEntity);

@@ -17,6 +17,7 @@ namespace ViaticosPrism.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true); // Init Nuget 
             LoadApplication(new App(new AndroidInitializer()));
         }
     }
