@@ -13,16 +13,18 @@ namespace Viaticos.Prism.ViewModels
 {
     public class TripPageViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
-        private List<TripResponse> _trips;
+        private List<TripItemViewModel> _trips;
 
         public TripPageViewModel(INavigationService navigationService, IApiService apiService) : base (navigationService)
         {
+            _navigationService = navigationService;
             _apiService = apiService;
-            Title = "Viajes";
+            Title = "My Trips";
             LoadTripsAsync();
         }
-        public List<TripResponse> Trips 
+        public List<TripItemViewModel> Trips 
         {
             get => _trips;
             set => SetProperty(ref _trips, value); 
@@ -44,7 +46,19 @@ namespace Viaticos.Prism.ViewModels
                     return;
             }
 
-            Trips = (List<TripResponse>)response.Result;
+            var trips = (List<TripResponse>)response.Result;
+
+            Trips = trips.Select(t => new TripItemViewModel (_navigationService)
+            {
+            Id = t.Id,
+            Name = t.Name,
+            StartDate = t.StartDate,
+            EndDate = t.EndDate,
+            City = t.City,
+            TripDetails = t.TripDetails,
+            User=t.User
+            }).ToList();
+
 
         }
     }

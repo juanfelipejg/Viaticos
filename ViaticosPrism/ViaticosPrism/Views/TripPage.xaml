@@ -15,31 +15,34 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectTripCommand}" />
+                        </Grid.GestureRecognizers>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <StackLayout Grid.Column="0"
                                      VerticalOptions="Center">
                             <Label Text="{Binding Name}" 
                                    FontAttributes="Bold"
-                                   FontSize="Medium"
+                                   FontSize="25"
                                    LineBreakMode="TailTruncation" />
                             <Label Text="{Binding City.Name}" 
                                    FontAttributes="Bold"
-                                   FontSize="Medium"
+                                   FontSize="22"
                                    LineBreakMode="TailTruncation" />
                             <Label Text="{Binding StartDateLocal, StringFormat='{0:yyyy/MM/dd}'}"
+                                   FontSize="18"
                                    LineBreakMode="TailTruncation"
                                    FontAttributes="Italic" 
                                    VerticalOptions="End" />
                             <Label Text="{Binding EndDateLocal, StringFormat='{0:yyyy/MM/dd}'}"
+                                   FontSize="18"
                                    LineBreakMode="TailTruncation"
                                    FontAttributes="Italic" 
                                    VerticalOptions="End" />
                         </StackLayout>
-                        <Image Grid.Column="1" 
-                               Source="ic_more_vert"/>
+
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

@@ -30,6 +30,7 @@ namespace ViaticosPrism
             containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<TripPage,TripPageViewModel>();
+            containerRegistry.RegisterForNavigation<TripDetailsPage, TripDetailsPageViewModel>();
         }
     }
 }

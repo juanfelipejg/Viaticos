@@ -15,7 +15,7 @@ namespace Viaticos.Common.Models
         public DateTime EndDate { get; set; }
         public DateTime EndDateLocal => EndDate.ToLocalTime();
         public CityResponse City { get; set; }
-        public ICollection<TripDetailResponse> TripDetails { get; set; }
+        public List<TripDetailResponse> TripDetails { get; set; }
         public decimal TotalAmount => TripDetails.Sum(x => x.Amount);
         public UserResponse User { get; set; }
     }

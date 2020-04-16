@@ -20,6 +20,10 @@ namespace Viaticos.Common.Models
 
         public string PicturePath { get; set; }
 
-        
+        public string PictureFullPath => string.IsNullOrEmpty(PicturePath)
+        ? "https://viaticoswebjjaramga.azurewebsites.net//images/noimage.png"
+:       $"https://viaticoswebjjaramga.azurewebsites.net{PicturePath.Substring(1)}";
+
+
     }
 }
