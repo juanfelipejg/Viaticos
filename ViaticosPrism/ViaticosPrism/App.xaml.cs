@@ -1,7 +1,5 @@
 ﻿using Prism;
 using Prism.Ioc;
-using ViaticosPrism.ViewModels;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Viaticos.Prism.ViewModels;
@@ -22,7 +20,7 @@ namespace ViaticosPrism
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/TripPage");
+            await NavigationService.NavigateAsync("/ViaticosMasterDetailPage/NavigationPage/TripPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -31,6 +29,9 @@ namespace ViaticosPrism
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<TripPage,TripPageViewModel>();
             containerRegistry.RegisterForNavigation<TripDetailsPage, TripDetailsPageViewModel>();
+            containerRegistry.RegisterForNavigation<ViaticosMasterDetailPage, ViaticosMasterDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<ModifyUserPage, ModifyUserPageViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
         }
     }
 }
