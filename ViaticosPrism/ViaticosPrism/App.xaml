@@ -10,6 +10,35 @@
             <!-- Parameters -->
             <x:String x:Key="UrlAPI">https://viaticoswebjjaramga.azurewebsites.net/</x:String>
 
+            <!-- Colors -->
+            <Color x:Key="ColorBackgroud">#9BDAF2</Color>
+            <Color x:Key="ColorPrimary">#82B8D9</Color>
+            <Color x:Key="ColorSecondary">#B2BF50</Color>
+            <Color x:Key="ColorDanger">#1FAFBF</Color>
+            <Color x:Key="ColorAccent">#BF814B</Color>
+            <Color x:Key="ColorFont">#191919</Color>
+            <Color x:Key="ColorFontInverse">#1FAFBF</Color>
+
+            <!-- Styles -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorAccent}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="TextColor" Value="{StaticResource ColorFontInverse}" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource ColorFont}" />
+            </Style>
+
+            <Style x:Key="SecondaryButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorSecondary}" />
+            </Style>
+
+            <Style x:Key="DangerButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorDanger}" />
+            </Style>
+
+
         </ResourceDictionary>
 
     </Application.Resources>
