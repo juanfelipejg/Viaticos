@@ -5,6 +5,7 @@ using Xamarin.Forms.Xaml;
 using Viaticos.Prism.ViewModels;
 using Viaticos.Prism.Views;
 using Viaticos.Common.Services;
+using Syncfusion.Licensing;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace ViaticosPrism
@@ -18,6 +19,7 @@ namespace ViaticosPrism
 
         protected override async void OnInitialized()
         {
+            SyncfusionLicenseProvider.RegisterLicense("MjQyNzA5QDMxMzgyZTMxMmUzMG9DNUNQcWl1WFVJVTJsMEVXS01ZRHA0NTZaTkxORnIrSVhpcFFNWlNmekk9");
             InitializeComponent();
 
             await NavigationService.NavigateAsync("/ViaticosMasterDetailPage/NavigationPage/TripPage");

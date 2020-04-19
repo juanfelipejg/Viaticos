@@ -3,6 +3,10 @@ using Android.Content.PM;
 using Android.OS;
 using Prism;
 using Prism.Ioc;
+using Syncfusion.SfBusyIndicator.XForms.Droid;
+using Syncfusion.SfCalendar.XForms.Droid;
+using Syncfusion.XForms.Android.Border;
+using Syncfusion.XForms.Android.ComboBox;
 
 namespace ViaticosPrism.Droid
 {
@@ -17,6 +21,10 @@ namespace ViaticosPrism.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            new SfBusyIndicatorRenderer();
+            //new SfComboBoxRenderer();
+            new SfCalendarRenderer();
+            
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true); // Init Nuget 
             LoadApplication(new App(new AndroidInitializer()));
         }

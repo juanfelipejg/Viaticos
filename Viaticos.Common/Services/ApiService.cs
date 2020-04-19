@@ -4,13 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;   
-
+using System.Threading.Tasks;
+using Plugin.Connectivity;
 
 namespace Viaticos.Common.Services
 {
     public class ApiService : IApiService
     {
+        public async Task<bool> CheckConnectionAsync(string url)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                return false;
+            }
+            return await CrossConnectivity.Current.IsRemoteReachable(url);
+        }
+
         public async Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller)
         {
             try

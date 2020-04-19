@@ -1,6 +1,11 @@
 ﻿using Foundation;
 using Prism;
 using Prism.Ioc;
+using Syncfusion.SfBusyIndicator.iOS;
+using Syncfusion.SfBusyIndicator.XForms.iOS;
+using Syncfusion.SfCalendar.XForms.iOS;
+using Syncfusion.XForms.iOS.Border;
+using Syncfusion.XForms.iOS.ComboBox;
 using UIKit;
 
 
@@ -14,6 +19,9 @@ namespace ViaticosPrism.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            new SfBusyIndicatorRenderer();
+            new SfComboBoxRenderer();
+            new SfCalendarRenderer();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(); // Init Nuget
             LoadApplication(new App(new iOSInitializer()));
 
