@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Viaticos.Common.Models;
+using Viaticos.Prism.Helpers;
 using ViaticosPrism.ViewModels;
 
 namespace Viaticos.Prism.ViewModels
@@ -19,7 +20,7 @@ namespace Viaticos.Prism.ViewModels
 
         public TripDetailsPageViewModel(INavigationService navigationService) : base (navigationService) 
         {
-            Title = "Details";
+            Title = Languages.Details;
         }
 
         public List<TripDetailResponse> TripDetails 
@@ -33,7 +34,7 @@ namespace Viaticos.Prism.ViewModels
             base.OnNavigatedTo(parameters);
 
             _trip = parameters.GetValue<TripResponse>("trip");
-            Title = $"Expenses: {_trip.Name}";
+            Title = $"{Languages.Expenses}:{ _trip.Name}";
 
             TripDetails = _trip.TripDetails.ToList();
         }

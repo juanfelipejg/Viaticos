@@ -80,6 +80,7 @@
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\Localize.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +107,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Viaticos.Common\Viaticos.Common.csproj">
+      <Project>{C4D16617-A7C0-4DDE-B31F-88C009916420}</Project>
+      <Name>Viaticos.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ViaticosPrism\Viaticos.Prism.csproj">
       <Project>{E7330956-4B23-4F19-A0B1-7E8D0DD46C1D}</Project>
       <Name>Viaticos.Prism</Name>

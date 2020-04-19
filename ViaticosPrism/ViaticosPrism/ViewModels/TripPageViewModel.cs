@@ -8,6 +8,7 @@ using Viaticos.Common.Services;
 using Viaticos.Common.Models;
 using ViaticosPrism.ViewModels;
 using ViaticosPrism;
+using Viaticos.Prism.Helpers;
 
 namespace Viaticos.Prism.ViewModels
 {
@@ -22,7 +23,7 @@ namespace Viaticos.Prism.ViewModels
         {
             _navigationService = navigationService;
             _apiService = apiService;
-            Title = "My Trips";
+            Title = Languages.MyTrips;
             LoadTripsAsync();
         }
 
@@ -42,7 +43,7 @@ namespace Viaticos.Prism.ViewModels
             if (!connection)
             {
                 IsRunning = false;
-                await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
                 return;
             }
             Response response = await _apiService.GetListAsync<TripResponse>(
@@ -53,11 +54,7 @@ namespace Viaticos.Prism.ViewModels
 
             if (!response.IsSuccess)
             {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                    return;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
             }
 
             var trips = (List<TripResponse>)response.Result;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using ViaticosPrism.ViewModels;
-
+using Viaticos.Prism.Helpers;
 
 namespace Viaticos.Prism.ViewModels
 {
@@ -29,20 +29,20 @@ namespace Viaticos.Prism.ViewModels
                 {
                     Icon = "plane",
                     PageName = "TripPage",
-                    Title = "My Trips"
+                    Title = Languages.MyTrips,
                 },
 
                 new Menu
                 {
                     Icon = "user",
                     PageName = "ModifyUserPage",
-                    Title = "Modify User"
+                    Title = Languages.ModifyUser,
                 },
                 new Menu
                 {
                     Icon = "login",
                     PageName = "LoginPage",
-                    Title = "Login"
+                    Title = Languages.Login,
                 }
             };
 
