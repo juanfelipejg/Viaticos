@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Soccer.Web.Data.Entities;
 using Soccer.Web.Helpers;
+using Viaticos.Web.Data.Entities;
 using ViaticosWeb.Data;
 using ViaticosWeb.Helpers;
 

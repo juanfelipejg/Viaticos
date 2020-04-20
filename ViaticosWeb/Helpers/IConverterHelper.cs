@@ -1,9 +1,9 @@
-﻿using Soccer.Web.Data.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Viaticos.Common.Models;
+using Viaticos.Web.Data.Entities;
 using ViaticosWeb.Data.Entities;
 using ViaticosWeb.Models;
 

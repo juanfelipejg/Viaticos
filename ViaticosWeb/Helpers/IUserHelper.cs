@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Soccer.Web.Data.Entities;
 using System.Threading.Tasks;
+using Viaticos.Common.Enums;
+using Viaticos.Web.Data.Entities;
+using Viaticos.Web.Models;
 using ViaticosWeb.Models;
 
 namespace ViaticosWeb.Helpers
@@ -20,6 +22,6 @@ namespace ViaticosWeb.Helpers
         Task<SignInResult> LoginAsync(LoginViewModel model);
 
         Task LogoutAsync();
-       
+        Task<UserEntity> AddUserAsync(AddUserViewModel model, UserType userType);
     }
 }

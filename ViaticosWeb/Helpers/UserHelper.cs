@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Soccer.Web.Data.Entities;
 using System.Threading.Tasks;
+using Viaticos.Common.Enums;
+using Viaticos.Web.Data.Entities;
+using Viaticos.Web.Models;
 using ViaticosWeb.Data;
 using ViaticosWeb.Helpers;
 using ViaticosWeb.Models;
@@ -30,6 +32,32 @@ namespace Soccer.Web.Helpers
         {
             return await _userManager.CreateAsync(user, password);
         }
+
+        public async Task<UserEntity> AddUserAsync(AddUserViewModel model,UserType userType)
+        {
+            UserEntity userEntity = new UserEntity
+            {
+                Address = model.Address,
+                Document = model.Document,
+                Email = model.Username,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                PhoneNumber = model.PhoneNumber,
+                UserName = model.Username,
+                UserType = userType
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(userEntity, model.Password);
+            if (result != IdentityResult.Success)
+            {
+                return null;
+            }
+
+            UserEntity newUser = await GetUserByEmailAsync(model.Username);
+            await AddUserToRoleAsync(newUser, userEntity.UserType.ToString());
+            return newUser;
+        }
+
 
         public async Task AddUserToRoleAsync(UserEntity user, string roleName)
         {

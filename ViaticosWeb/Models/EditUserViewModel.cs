@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Viaticos.Common.Enums;
-using ViaticosWeb.Data.Entities;
 
-namespace Viaticos.Web.Data.Entities
+namespace Viaticos.Web.Models
 {
-    public class UserEntity : IdentityUser
+    public class EditUserViewModel
     {
+        public int Id { get; set; }
+
         [Display(Name = "Document")]
         [MaxLength(20, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
@@ -23,17 +24,12 @@ namespace Viaticos.Web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string LastName { get; set; }
 
-        [MaxLength(500, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         public string Address { get; set; }
 
-        [Display(Name = "User Type")]
-        public UserType UserType { get; set; }
+        [Display(Name = "Phone Number")]
+        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        public string PhoneNumber { get; set; }
 
-        [Display(Name = "User")]
-        public string FullName => $"{FirstName} {LastName}";
-
-        public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";
-
-        public ICollection<TripEntity> Trip { get; set; }
     }
 }

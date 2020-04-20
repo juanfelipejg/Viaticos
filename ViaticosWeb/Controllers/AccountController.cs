@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Viaticos.Common.Enums;
+using Viaticos.Web.Models;
+using Viaticos.Web.Data.Entities;
 
 namespace ViaticosWeb.Controllers
 {
@@ -22,6 +25,43 @@ namespace ViaticosWeb.Controllers
             return View();
         }
 
+        public IActionResult Register()
+        {
+            AddUserViewModel model = new AddUserViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(AddUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserEntity user = await _userHelper.AddUserAsync(model,UserType.User);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "This email is already used.");
+                    return View(model);
+                }
+
+                LoginViewModel loginViewModel = new LoginViewModel
+                {
+                    Password = model.Password,
+                    RememberMe = false,
+                    Username = model.Username
+                };
+
+                var result2 = await _userHelper.LoginAsync(loginViewModel);
+
+                if (result2.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View(model);
+        }
 
         public IActionResult Login()
         {

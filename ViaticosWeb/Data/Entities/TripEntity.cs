@@ -1,4 +1,4 @@
-﻿using Soccer.Web.Data.Entities;
+﻿using Viaticos.Web.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

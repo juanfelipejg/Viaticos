@@ -6,7 +6,7 @@ using ViaticosWeb.Data;
 using ViaticosWeb.Data.Entities;
 using ViaticosWeb.Models;
 using Viaticos.Common.Models;
-using Soccer.Web.Data.Entities;
+using Viaticos.Web.Data.Entities;
 
 namespace ViaticosWeb.Helpers
 {

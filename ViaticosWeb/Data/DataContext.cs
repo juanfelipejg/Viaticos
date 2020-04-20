@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Soccer.Web.Data.Entities;
+using Viaticos.Web.Data.Entities;
 using ViaticosWeb.Data.Entities;
 
 namespace ViaticosWeb.Data

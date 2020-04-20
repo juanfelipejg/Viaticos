@@ -61,7 +61,7 @@ namespace Viaticos.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Accept .
+        ///   Looks up a localized string similar to Accept.
         /// </summary>
         public static string Accept {
             get {
