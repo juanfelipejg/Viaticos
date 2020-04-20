@@ -15,6 +15,11 @@ namespace ViaticosWeb.Controllers
             return View();
         }
 
+        [Route("error/404")]
+        public IActionResult Error404()
+        {
+            return View();
+        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
