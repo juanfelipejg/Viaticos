@@ -1,23 +1,69 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ViaticosWeb.Helpers;
-using ViaticosWeb.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Viaticos.Common.Enums;
-using Viaticos.Web.Models;
 using Viaticos.Web.Data.Entities;
+using Viaticos.Web.Models;
+using ViaticosWeb.Helpers;
+using ViaticosWeb.Models;
 
 namespace ViaticosWeb.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IUserHelper _userHelper;
+        private readonly IConfiguration _configuration;
 
-        public AccountController(IUserHelper userHelper)
+        public AccountController(IUserHelper userHelper, IConfiguration configuration)
         {
             _userHelper = userHelper;
+            _configuration = configuration;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserAsync(model.Username);
+                if (user != null)
+                {
+                    var result = await _userHelper.ValidatePasswordAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        var claims = new[]
+                        {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
+                        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                        var token = new JwtSecurityToken(
+                            _configuration["Tokens:Issuer"],
+                            _configuration["Tokens:Audience"],
+                            claims,
+                            expires: DateTime.UtcNow.AddDays(99), //Duration of token 
+                            signingCredentials: credentials);
+                        var results = new
+                        {
+                            token = new JwtSecurityTokenHandler().WriteToken(token),
+                            expiration = token.ValidTo
+                        };
+
+                        return Created(string.Empty, results);
+                    }
+                }
+            }
+
+            return BadRequest();
         }
 
         public IActionResult NotAuthorized()
@@ -38,7 +84,7 @@ namespace ViaticosWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserEntity user = await _userHelper.AddUserAsync(model,UserType.User);
+                UserEntity user = await _userHelper.AddUserAsync(model, UserType.User);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "This email is already used.");
@@ -52,7 +98,7 @@ namespace ViaticosWeb.Controllers
                     Username = model.Username
                 };
 
-                var result2 = await _userHelper.LoginAsync(loginViewModel);
+                Microsoft.AspNetCore.Identity.SignInResult result2 = await _userHelper.LoginAsync(loginViewModel);
 
                 if (result2.Succeeded)
                 {
@@ -78,7 +124,7 @@ namespace ViaticosWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _userHelper.LoginAsync(model);
+                Microsoft.AspNetCore.Identity.SignInResult result = await _userHelper.LoginAsync(model);
                 if (result.Succeeded)
                 {
                     if (Request.Query.Keys.Contains("ReturnUrl"))
@@ -138,6 +184,32 @@ namespace ViaticosWeb.Controllers
 
             return View(model);
         }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserEntity user = await _userHelper.GetUserAsync(User.Identity.Name);
+                Microsoft.AspNetCore.Identity.IdentityResult result = await _userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ChangeUser");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Errors.FirstOrDefault().Description);
+                }
+            }
+
+            return View(model);
+        }
+
 
     }
 }

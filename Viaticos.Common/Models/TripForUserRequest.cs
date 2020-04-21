@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Viaticos.Common.Models
 {
-    public class PredictionsForUserRequest
+    public class TripForUserRequest
     {
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public Guid UserId { get; set; }

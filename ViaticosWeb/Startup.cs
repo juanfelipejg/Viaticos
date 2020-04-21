@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Soccer.Web.Helpers;
+using System.Text;
 using Viaticos.Web.Data.Entities;
 using ViaticosWeb.Data;
 using ViaticosWeb.Helpers;
@@ -46,6 +48,18 @@ namespace ViaticosWeb
                 cfg.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<DataContext>();
 
+            services.AddAuthentication()
+            .AddCookie()
+            .AddJwtBearer(cfg =>
+            {
+             cfg.TokenValidationParameters = new TokenValidationParameters
+            {
+            ValidIssuer = Configuration["Tokens:Issuer"],
+            ValidAudience = Configuration["Tokens:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+             };
+             });
+
 
             services.AddDbContext<DataContext>(cfg =>
             {
@@ -83,7 +97,7 @@ namespace ViaticosWeb
             });
 
 
-                            
+
         }
     }
 }

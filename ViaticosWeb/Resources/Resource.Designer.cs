@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Viaticos.Prism.Resources {
+namespace ViaticosWeb.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Viaticos.Prism.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Viaticos.Prism.Resources.Resource", typeof(Resource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ViaticosWeb.Resources.Resource", typeof(Resource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,88 +61,97 @@ namespace Viaticos.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Accept.
+        ///   Looks up a localized string similar to Confirm Email.
         /// </summary>
-        public static string Accept {
+        public static string ConfirmEmail {
             get {
-                return ResourceManager.GetString("Accept", resourceCulture);
+                return ResourceManager.GetString("ConfirmEmail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check the internet connection.
+        ///   Looks up a localized string similar to A Confirmation email was sent. Please confirm your account and log into the App..
         /// </summary>
-        public static string ConnectionError {
+        public static string ConfirmEmailMessage {
             get {
-                return ResourceManager.GetString("ConnectionError", resourceCulture);
+                return ResourceManager.GetString("ConfirmEmailMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Details.
+        ///   Looks up a localized string similar to To allow the user, please click on this link:.
         /// </summary>
-        public static string Details {
+        public static string ConfirmEmailSubject {
             get {
-                return ResourceManager.GetString("Details", resourceCulture);
+                return ResourceManager.GetString("ConfirmEmailSubject", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Incorrect current password..
         /// </summary>
-        public static string Error {
+        public static string IncorrectCurrentPassword {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("IncorrectCurrentPassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expenses.
+        ///   Looks up a localized string similar to The password was changed successfully!.
         /// </summary>
-        public static string Expenses {
+        public static string PasswordChangedSuccess {
             get {
-                return ResourceManager.GetString("Expenses", resourceCulture);
+                return ResourceManager.GetString("PasswordChangedSuccess", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading.
+        ///   Looks up a localized string similar to  Recover Password.
         /// </summary>
-        public static string Loading {
+        public static string RecoverPassword {
             get {
-                return ResourceManager.GetString("Loading", resourceCulture);
+                return ResourceManager.GetString("RecoverPassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login.
+        ///   Looks up a localized string similar to An email with instructions to change the password was sent..
         /// </summary>
-        public static string Login {
+        public static string RecoverPasswordMessage {
             get {
-                return ResourceManager.GetString("Login", resourceCulture);
+                return ResourceManager.GetString("RecoverPasswordMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modify User.
+        ///   Looks up a localized string similar to To reset the password click in this link:.
         /// </summary>
-        public static string ModifyUser {
+        public static string RecoverPasswordSubject {
             get {
-                return ResourceManager.GetString("ModifyUser", resourceCulture);
+                return ResourceManager.GetString("RecoverPasswordSubject", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Trips.
+        ///   Looks up a localized string similar to Trip doesn&apos;t exists..
         /// </summary>
-        public static string MyTrips {
+        public static string TripDoesntExists {
             get {
-                return ResourceManager.GetString("MyTrips", resourceCulture);
+                return ResourceManager.GetString("TripDoesntExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User Doesn&apos;t exists.
+        ///   Looks up a localized string similar to User already exists..
+        /// </summary>
+        public static string UserAlreadyExists {
+            get {
+                return ResourceManager.GetString("UserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User doesn&apos;t exists..
         /// </summary>
         public static string UserDoesntExists {
             get {

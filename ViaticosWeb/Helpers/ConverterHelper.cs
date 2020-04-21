@@ -85,6 +85,7 @@ namespace ViaticosWeb.Helpers
                 Name = expenseTypeEntity.Name,
             };
         }
+
         public TripResponse ToTripResponse(TripEntity tripEntity)
         {
             return new TripResponse
@@ -116,6 +117,7 @@ namespace ViaticosWeb.Helpers
 
             return list;
         }
+
         public UserResponse ToUserResponse(UserEntity user)
         {
             if (user == null)
