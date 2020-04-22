@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace ViaticosWeb.Helpers
 {
-    interface IImageHelper
+    public interface IImageHelper
     {
         Task<string> UploadImageAsync(IFormFile imageFile, string folder);
+
+        string UploadImage(byte[] pictureArray, string folder);
     }
 }
