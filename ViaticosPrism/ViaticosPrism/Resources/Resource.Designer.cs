@@ -140,14 +140,5 @@ namespace Viaticos.Prism.Resources {
                 return ResourceManager.GetString("MyTrips", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User Doesn&apos;t exists.
-        /// </summary>
-        public static string UserDoesntExists {
-            get {
-                return ResourceManager.GetString("UserDoesntExists", resourceCulture);
-            }
-        }
     }
 }

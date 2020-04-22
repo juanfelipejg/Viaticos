@@ -144,7 +144,4 @@
   <data name="MyTrips" xml:space="preserve">
     <value>My Trips</value>
   </data>
-  <data name="UserDoesntExists" xml:space="preserve">
-    <value>User Doesn't exists</value>
-  </data>
 </root>
